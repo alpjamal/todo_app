@@ -16,12 +16,25 @@ class TodoColor {
   static const Color study = Color(0xFF3044F2);
   static const Color shopping = Color(0xFFF29130);
   static const Color party = Color(0xFF09ACCE);
+  static const Color fltLight = Color(0xFFF857C3);
+  static const Color fltDark = Color(0xFFE0139C);
 }
 
 class TodoStyle {
   static const TextStyle entry = TextStyle(fontSize: 22, color: TodoColor.purple, fontWeight: FontWeight.w600);
   static const TextStyle btn = TextStyle(fontSize: 15);
+  static const TextStyle label = TextStyle(fontSize: 11);
+  static const TextStyle appBar = TextStyle(fontSize: 18);
+  static const TextStyle taskCard = TextStyle(fontSize: 14, color: TodoColor.purple, fontWeight: FontWeight.bold);
+  static const TextStyle cardTime = TextStyle(fontSize: 11, color: Colors.grey);
 }
+
 class TodoImage {
   static const String onboarding = 'assets/images/onboarding.png';
+  static const String empty = 'assets/images/no_tasks.png';
+  static const String appBar = 'assets/images/Frame.png';
+}
+
+class TodoIcon {
+  static const String add = 'assets/icons/add.png';
 }

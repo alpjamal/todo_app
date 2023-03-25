@@ -13,7 +13,7 @@ class OnboardingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(width: double.infinity),
-            Image.asset(TodoImage.onboarding, cacheHeight: 220),
+            Image.asset(TodoImage.onboarding, cacheHeight: 200),
             const Text('Reminders made simple', style: TodoStyle.entry),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 70),
