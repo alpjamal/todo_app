@@ -12,7 +12,6 @@ class NavbarCubit extends Cubit<NavbarState> {
   int get currIndex => _currIndex;
 
   changeIndex(int value) {
-    print('--------------------$value--------------------');
     _currIndex = value;
     emit(NavbarChanged());
   }

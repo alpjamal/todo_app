@@ -27,6 +27,8 @@ class TodoStyle {
   static const TextStyle appBar = TextStyle(fontSize: 18);
   static const TextStyle taskCard = TextStyle(fontSize: 14, color: TodoColor.purple, fontWeight: FontWeight.bold);
   static const TextStyle cardTime = TextStyle(fontSize: 11, color: Colors.grey);
+  static const TextStyle panelTitle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
+  static const TextStyle panelCategory = TextStyle(fontSize: 14, color: Colors.grey);
 }
 
 class TodoImage {
@@ -37,4 +39,21 @@ class TodoImage {
 
 class TodoIcon {
   static const String add = 'assets/icons/add.png';
+}
+
+class TodoShadow {
+  static const todoCard = BoxShadow(color: Colors.grey, offset: Offset(0, 4), blurRadius: 5);
+  static const floatingBtn = BoxShadow(color: TodoColor.fltLight, blurRadius: 7, offset: Offset(0, 4));
+  static const category = BoxShadow(color: Colors.grey, offset: Offset(0, 5), blurRadius: 10);
+}
+
+class TodoRadius {
+  static const elliptical = BorderRadius.vertical(top: Radius.elliptical(200, 30));
+  static const categoryCard = BorderRadius.all(Radius.circular(5));
+  static const gradientBtn = BorderRadius.all(Radius.circular(10));
+  static const todoCard = BorderRadius.all(Radius.circular(7));
+}
+class TodoSize {
+  static const double panelMaxHeight = 370;
+  static const double fabBottomPadding = 63;
 }

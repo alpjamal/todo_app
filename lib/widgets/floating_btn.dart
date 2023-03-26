@@ -11,9 +11,7 @@ class GradientFloatingBtn extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [TodoColor.fltLight, TodoColor.fltDark]),
         shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(color: TodoColor.fltLight, blurRadius: 7, offset: Offset(0, 4)),
-        ],
+        boxShadow: [TodoShadow.floatingBtn],
       ),
       child: FloatingActionButton(
         backgroundColor: Colors.transparent,

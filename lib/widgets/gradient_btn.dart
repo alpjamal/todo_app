@@ -11,7 +11,7 @@ class GradientButton extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: gradient ?? LinearGradient(colors: [TodoColor.purpleLight, TodoColor.purpleDark]),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: TodoRadius.gradientBtn,
       ),
       child: ElevatedButton(
         onPressed: onPressed,
