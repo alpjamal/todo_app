@@ -17,6 +17,7 @@ import 'data/models/todo_category.dart';
 
 part 'utils/theme.dart';
 part 'screens/home_screen/app_bar.dart';
+part 'screens/home_screen/add_todo_panel.dart';
 part 'screens/onboarding_screen.dart';
 part 'screens/home_screen/home_screen.dart';
 part 'widgets/gradient_btn.dart';
