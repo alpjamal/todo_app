@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:todo_app/data/models/todo_category.dart';
@@ -26,5 +27,11 @@ class ColorCubit extends Cubit<ColorState> {
     } else if (category == TodoCategory.study) {
       return TodoColor.study;
     }
+  }
+
+  getBellColor(DateTime dateTime) {
+    Duration diff = dateTime.difference(DateTime.now());
+    dateTime.difference(DateTime.now()).inHours > 5;
+    return diff.inHours > 5 ? Colors.grey : Colors.amber;
   }
 }

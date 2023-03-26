@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'utils/constants.dart';
-import 'data/category_cubit/color_cubit.dart';
+import 'data/color_cubit/color_cubit.dart';
 import 'data/todo_category/category_bloc.dart';
 import 'data/todos/todos_bloc.dart';
 import 'data/panel/panel_cubit.dart';
@@ -17,12 +17,13 @@ import 'data/models/todo_category.dart';
 
 part 'utils/theme.dart';
 part 'screens/onboarding_screen.dart';
-part 'screens/home_screen.dart';
+part 'screens/home_screen/home_screen.dart';
 part 'widgets/gradient_btn.dart';
 part 'widgets/floating_btn.dart';
 part 'widgets/todo_card.dart';
 part 'widgets/category.dart';
 part 'widgets/category_btn.dart';
+part 'screens/home_screen/app_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,15 +39,8 @@ void main() async {
             create: (_) => TodosBloc()
               ..add(LoadTodos(
                 todos: [
-                  ...List.generate(
-                    2,
-                    (index) => Todo(
-                      id: DateTime.now().toString(),
-                      title: 'PlaceHolder',
-                      dayTime: TimeOfDay.now().toString(),
-                      category: TodoCategory.shopping,
-                    ),
-                  ),
+                  // Todo(id: '', title: 'Todo1', dayTime: 'day time', category: TodoCategory.meeting),
+                  // Todo(id: '', title: 'Todo2', dayTime: 'day time', category: TodoCategory.meeting),
                 ],
               ))),
         BlocProvider(create: (_) => TodoPanelCubit()),

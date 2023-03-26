@@ -1,11 +1,19 @@
 part of '/main.dart';
 
 class TodoCategoryCard extends StatelessWidget {
-  const TodoCategoryCard({super.key, required this.index});
+  const TodoCategoryCard(this.index, this.state, {super.key});
   final int index;
+  final TodosState state;
 
   @override
   Widget build(BuildContext context) {
+    int len = 0;
+    TodoCategory category = TodoCategory.values[index];
+    String categoryName = '${category.name[0].toUpperCase()}${category.name.substring(1)}';
+    if (state is TodosLoaded) {
+      len = (state as TodosLoaded).todos.where((todo) => todo.category == category).toList().length;
+    }
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -16,8 +24,8 @@ class TodoCategoryCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Image.asset('assets/icons/category$index.png', cacheHeight: 60),
-          Text('category', style: TodoStyle.appBar),
-          Text('category', style: TodoStyle.label),
+          Text(categoryName, style: TodoStyle.appBar),
+          Text(len.toString(), style: TodoStyle.label),
         ],
       ),
     );

@@ -4,7 +4,7 @@ import 'package:todo_app/data/models/todo_category.dart';
 class Todo extends Equatable {
   final String? id;
   final String title;
-  final String dayTime;
+  final DateTime dayTime;
   final TodoCategory category;
   final bool isCompleted;
 
@@ -22,7 +22,7 @@ class Todo extends Equatable {
   Todo copyWith({
     String? id,
     String? title,
-    String? dayTime,
+    DateTime? dayTime,
     TodoCategory? category,
     bool? isCompleted,
   }) {

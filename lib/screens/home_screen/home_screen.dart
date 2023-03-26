@@ -1,4 +1,4 @@
-part of '/main.dart';
+part of '/../main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,7 +11,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late TextEditingController controller;
   Todo? _todo;
   String? _title;
-  String? _dayTime;
+  DateTime? _dayTime;
   TodoCategory? _category;
 
   @override
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var panel = BlocProvider.of<TodoPanelCubit>(context, listen: true);
 
     return Scaffold(
-      appBar: _appBar(context),
+      appBar: PreferredSize(preferredSize: Size.fromHeight(80), child: UserAppBar()),
       body: BlocListener<TodosBloc, TodosState>(
         listener: (ctx, state) {
           if (state is TodosLoaded) {
@@ -91,19 +91,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _categories() {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: GridView.builder(
-        itemCount: TodoCategory.values.length - 1,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-        ),
-        itemBuilder: (ctx, index) {
-          return TodoCategoryCard(index: index);
-        },
-      ),
+    return BlocBuilder<TodosBloc, TodosState>(
+      builder: (ctx, state) {
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: GridView.builder(
+            itemCount: TodoCategory.values.length - 1,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
+            ),
+            itemBuilder: (ctx, index) {
+              return TodoCategoryCard(index, state);
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -188,16 +192,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () async {
                   DateTime? date = await _pickDate(ctx);
                   if (date == null) return;
-                  DateTime day = DateTime(date.year, date.month, date.day);
-
                   // ignore: use_build_context_synchronously
                   TimeOfDay? time = await _pickTime(ctx);
                   if (time == null) return;
-                  String hour = time.hour.toString().padLeft(2, '0');
-                  String minute = time.minute.toString().padLeft(2, '0');
-
-                  String dateTime = DateFormat.MMMMd().format(day);
-                  _dayTime = '$dateTime $hour:$minute';
+                  _dayTime = DateTime(date.year, date.month, date.day, time.hour, time.minute);
                   setState(() {});
                 },
                 icon: Icon(Icons.arrow_drop_down_sharp),
@@ -206,7 +204,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SizedBox(
             width: double.infinity,
-            child: Text(_dayTime ?? '', style: TodoStyle.btn.copyWith(fontWeight: FontWeight.bold)),
+            child: Text(
+              _dayTime != null ? DateFormat('MMM dd HH:mm').format(_dayTime!) : '',
+              style: TodoStyle.btn.copyWith(fontWeight: FontWeight.bold),
+            ),
           ),
           SizedBox(height: 20),
           GradientButton(
@@ -243,42 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _pickTime(ctx) => showTimePicker(context: ctx, initialTime: TimeOfDay.now());
-
-  _appBar(ctx) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      titleSpacing: 0,
-      flexibleSpace: Image.asset(TodoImage.appBar, fit: BoxFit.cover),
-      // toolbarHeight: 240,
-      leadingWidth: 0,
-      title: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: BlocBuilder<TodosBloc, TodosState>(
-          builder: (context, state) {
-            return Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (state is TodosLoaded)
-                      Text('Hello Brenda!\nToday you have ${state.todos.length} tasks', style: TodoStyle.appBar),
-                    if (state is TodosLoading) Text('Hello Brenda!\nToday you have 0  tasks', style: TodoStyle.appBar),
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                      ),
-                    )
-                  ],
-                )
-              ],
-            );
-          },
-        ),
-      ),
-    );
+  _pickTime(ctx) {
+    return showTimePicker(context: ctx, initialTime: TimeOfDay.now());
   }
 }
