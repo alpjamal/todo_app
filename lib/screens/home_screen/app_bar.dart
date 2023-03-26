@@ -5,37 +5,33 @@ class UserAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Todo> todos = BlocProvider.of<TodosBloc>(context).todos;
+    Todo? alertTodo = BlocProvider.of<TodosBloc>(context).alertTodo;
+
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
       titleSpacing: 0,
       flexibleSpace: Image.asset(TodoImage.appBar, fit: BoxFit.cover),
-      // toolbarHeight: 240,
+      toolbarHeight: alertTodo == null ? TodoSize.appBarNoAlert : TodoSize.appBarAlert,
       leadingWidth: 0,
       title: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: BlocBuilder<TodosBloc, TodosState>(
-          builder: (context, state) {
-            return Column(
+        padding: EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (state is TodosLoaded)
-                      Text('Hello User!\nToday you have ${state.todos.length} tasks', style: TodoStyle.appBar),
-                    if (state is TodosLoading) Text('Hello Brenda!\nToday you have 0  tasks', style: TodoStyle.appBar),
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                      ),
-                    )
-                  ],
+                Text('Hello User!\nToday you have ${todos.length} tasks', style: TodoStyle.appBar),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
                 )
               ],
-            );
-          },
+            ),
+            SizedBox(height: 10),
+            if (alertTodo != null) TodoAlert(todo: alertTodo),
+          ],
         ),
       ),
     );

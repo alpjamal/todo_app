@@ -16,6 +16,7 @@ import 'data/models/todo.dart';
 import 'data/models/todo_category.dart';
 
 part 'utils/theme.dart';
+part 'screens/home_screen/app_bar.dart';
 part 'screens/onboarding_screen.dart';
 part 'screens/home_screen/home_screen.dart';
 part 'widgets/gradient_btn.dart';
@@ -23,7 +24,7 @@ part 'widgets/floating_btn.dart';
 part 'widgets/todo_card.dart';
 part 'widgets/category.dart';
 part 'widgets/category_btn.dart';
-part 'screens/home_screen/app_bar.dart';
+part 'widgets/todo_alert.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

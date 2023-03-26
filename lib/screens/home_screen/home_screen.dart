@@ -24,9 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var navBar = BlocProvider.of<NavbarCubit>(context, listen: true);
     var panel = BlocProvider.of<TodoPanelCubit>(context, listen: true);
-
+    Todo? alertTodo = BlocProvider.of<TodosBloc>(context).alertTodo;
     return Scaffold(
-      appBar: PreferredSize(preferredSize: Size.fromHeight(80), child: UserAppBar()),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(alertTodo == null ? TodoSize.appBarNoAlert : TodoSize.appBarAlert - 25),
+        child: UserAppBar(),
+      ),
       body: BlocListener<TodosBloc, TodosState>(
         listener: (ctx, state) {
           if (state is TodosLoaded) {
