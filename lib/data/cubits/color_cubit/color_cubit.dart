@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:todo_app/data/models/todo_category.dart';
-import '../../utils/constants.dart';
+import '/../../utils/constants.dart';
 part 'color_state.dart';
 
 class ColorCubit extends Cubit<ColorState> {

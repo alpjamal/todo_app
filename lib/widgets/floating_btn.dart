@@ -7,16 +7,15 @@ class GradientFloatingBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [TodoColor.fltLight, TodoColor.fltDark]),
-        shape: BoxShape.circle,
-        boxShadow: [TodoShadow.floatingBtn],
-      ),
-      child: FloatingActionButton(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        onPressed: onPressed,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [TodoColor.fltLight, TodoColor.fltDark]),
+          shape: BoxShape.circle,
+          boxShadow: [TodoShadow.floatingBtn],
+        ),
         child: icon ?? Image.asset(TodoIcon.add, cacheHeight: 30),
       ),
     );

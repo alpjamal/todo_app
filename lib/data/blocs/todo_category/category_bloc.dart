@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:todo_app/data/models/todo.dart';
 import 'package:todo_app/data/models/todo_category.dart';
-import 'package:todo_app/data/todos/todos_bloc.dart';
+import 'package:todo_app/data/blocs/todos/todos_bloc.dart';
 
 part 'category_event.dart';
 part 'category_state.dart';

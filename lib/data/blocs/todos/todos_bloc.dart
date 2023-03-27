@@ -1,12 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:todo_app/data/repository/todos_repo.dart';
 
-import '../models/todo.dart';
+import '../../models/todo.dart';
 
 part 'todos_event.dart';
 part 'todos_state.dart';
 
 class TodosBloc extends Bloc<TodosEvent, TodosState> {
+  final TodosRepo _repo = TodosRepo();
+
   TodosBloc() : super(TodosLoading()) {
     on<LoadTodos>(_loadTodos);
     on<AddTodo>(_addTodo);
@@ -25,20 +28,21 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
         alertTodo = null;
       }
     }
-
     return alertTodo;
   }
 
   _loadTodos(LoadTodos event, Emitter<TodosState> emit) async {
     await Future.delayed(Duration(seconds: 1));
-    _todos = event.todos;
-    emit(TodosLoaded(todos: event.todos));
+    List<Todo> todos = await _repo.getTodos();
+    _todos = todos;
+    emit(TodosLoaded(todos: todos));
   }
 
-  _addTodo(AddTodo event, Emitter<TodosState> emit) {
+  _addTodo(AddTodo event, Emitter<TodosState> emit) async {
     final state = this.state;
     if (state is TodosLoaded) {
       _todos = List.from(state.todos)..add(event.todo);
+      await _repo.addTodo(event.todo);
       emit(TodosLoaded(todos: List.from(state.todos)..add(event.todo)));
     }
   }

@@ -58,7 +58,8 @@ class TodoRadius {
 
 class TodoSize {
   static const double panelMaxHeight = 370;
-  static const double fabBottomPadding = 63;
+  static const double iOSfabBottomPad = 63;
+  static const double androidFabBottomPad = 28;
   static const double appBarNoAlert = 70;
   static const double appBarAlert = 200;
 }
