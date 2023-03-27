@@ -34,9 +34,18 @@ class TodosRepo {
     );
   }
 
-  Future<dynamic> updateTodo(Todo todo) async {
+  Future<void> updateTodo(Todo todo) async {
     FirebaseFirestore.instance.collection('todos').add(
       {},
     );
+  }
+
+  Future<void> deleteTodo(Todo todo) async {
+    final snapshot = await FirebaseFirestore.instance.collection('todos').get();
+    for (var doc in snapshot.docs) {
+      if (todo.id == doc['id']) {
+        await doc.reference.delete();
+      }
+    }
   }
 }

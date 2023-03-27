@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:todo_app/data/repository/todos_repo.dart';
@@ -32,25 +34,34 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   }
 
   _loadTodos(LoadTodos event, Emitter<TodosState> emit) async {
-    await Future.delayed(Duration(seconds: 1));
-    List<Todo> todos = await _repo.getTodos();
-    _todos = todos;
+    if (!Platform.isIOS) {
+      List<Todo> todos = await _repo.getTodos();
+      _todos = todos;
+    } else {
+      _todos = event.todos;
+    }
     emit(TodosLoaded(todos: todos));
   }
 
   _addTodo(AddTodo event, Emitter<TodosState> emit) async {
     final state = this.state;
     if (state is TodosLoaded) {
+      if (!Platform.isIOS) {
+        await _repo.addTodo(event.todo);
+      }
       _todos = List.from(state.todos)..add(event.todo);
-      await _repo.addTodo(event.todo);
       emit(TodosLoaded(todos: List.from(state.todos)..add(event.todo)));
     }
   }
 
-  _deleteTodo(DeleteTodo event, Emitter<TodosState> emit) {
+  _deleteTodo(DeleteTodo event, Emitter<TodosState> emit) async {
     final state = this.state;
     if (state is TodosLoaded) {
       List<Todo> todos = state.todos.where((todo) => todo.id != event.todo.id).toList();
+   
+      if (!Platform.isIOS) {
+        await _repo.deleteTodo(event.todo);
+      }
       _todos = todos;
       emit(TodosLoaded(todos: todos));
     }
