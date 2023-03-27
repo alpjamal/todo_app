@@ -100,7 +100,7 @@ class HomeScreen extends StatelessWidget {
           key: ValueKey(todo.id),
           endActionPane: ActionPane(
             motion: ScrollMotion(),
-            extentRatio: 0.27,
+            extentRatio: Platform.isIOS ?  0.27 : 0.30,
             children: [
               SizedBox(width: 10),
               FloatingActionButton(

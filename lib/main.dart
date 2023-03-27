@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +32,7 @@ part 'widgets/todo_alert.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  Platform.isIOS ? null : await Firebase.initializeApp();
   var prefs = await SharedPreferences.getInstance();
   bool isInitial = prefs.getBool(TodoPrefs.isInitial) ?? true;
   runApp(
