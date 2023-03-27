@@ -28,9 +28,7 @@ class TodoCard extends StatelessWidget {
                 SizedBox(width: 15),
                 IconButton(
                   splashColor: Colors.transparent,
-                  onPressed: () {
-                    context.read<TodosBloc>().add(TodoDone(todo: todo.copyWith(isCompleted: true)));
-                  },
+                  onPressed: () => context.read<TodosBloc>().add(TodoDone(todo: todo.copyWith(isCompleted: true))),
                   icon: todo.isCompleted
                       ? Icon(Icons.check_circle_rounded, color: Colors.green)
                       : Icon(Icons.circle_outlined, color: Colors.grey),

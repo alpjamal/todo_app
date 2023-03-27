@@ -6,18 +6,17 @@ import '../models/todo.dart';
 class TodosRepo {
   Future<dynamic> getTodos() async {
     List<Todo> todos = [];
-    FirebaseFirestore.instance.collection('todos').snapshots().listen((data) {
-      for (var item in data.docs) {
-        var todo = Todo(
-          id: item['id'],
-          title: item['title'],
-          dayTime: DateTime.parse(item['dayTime']),
-          category: TodoCategory.values.firstWhere((e) => e.toString() == item['category']),
-          isCompleted: item['isCompleted'],
-        );
-        todos.add(todo);
-      }
-    });
+    final snapshot = await FirebaseFirestore.instance.collection('todos').get();
+    for (var item in snapshot.docs) {
+      var todo = Todo(
+        id: item['id'],
+        title: item['title'],
+        dayTime: DateTime.parse(item['dayTime']),
+        category: TodoCategory.values.firstWhere((e) => e.toString() == item['category']),
+        isCompleted: item['isCompleted'],
+      );
+      todos.add(todo);
+    }
     return todos;
   }
 
@@ -35,9 +34,16 @@ class TodosRepo {
   }
 
   Future<void> updateTodo(Todo todo) async {
-    FirebaseFirestore.instance.collection('todos').add(
-      {},
-    );
+    final snapshot = await FirebaseFirestore.instance.collection('todos').get();
+    for (var doc in snapshot.docs) {
+      if (todo.id == doc['id']) {
+        await doc.reference.update(
+          {
+            'isCompleted': todo.isCompleted,
+          },
+        );
+      }
+    }
   }
 
   Future<void> deleteTodo(Todo todo) async {

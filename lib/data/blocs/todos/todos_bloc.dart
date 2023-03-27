@@ -58,7 +58,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     final state = this.state;
     if (state is TodosLoaded) {
       List<Todo> todos = state.todos.where((todo) => todo.id != event.todo.id).toList();
-   
+
       if (!Platform.isIOS) {
         await _repo.deleteTodo(event.todo);
       }
@@ -67,12 +67,16 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     }
   }
 
-  _updateTodo(TodoDone event, Emitter<TodosState> emit) {
+  _updateTodo(TodoDone event, Emitter<TodosState> emit) async {
     final state = this.state;
     if (state is TodosLoaded) {
       List<Todo> todos = state.todos.map((todo) {
         return todo.id == event.todo.id ? event.todo : todo;
       }).toList();
+
+      if (!Platform.isIOS) {
+        await _repo.updateTodo(event.todo);
+      }
       _todos = todos;
       emit(TodosLoaded(todos: todos));
     }

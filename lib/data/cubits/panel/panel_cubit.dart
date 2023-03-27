@@ -12,7 +12,8 @@ class TodoPanelCubit extends Cubit<TodoPanelState> {
   double _fabBottomPadding = Platform.isIOS ? TodoSize.iOSfabBottomPad : TodoSize.androidFabBottomPad;
 
   getFabBottomPadding(double value) {
-    return _fabBottomPadding + value * 0.735;
+    double multipler = Platform.isIOS ? 0.736 : 0.545;
+    return _fabBottomPadding + value * multipler;
   }
 
   final double _panelMaxHeight = TodoSize.panelMaxHeight;

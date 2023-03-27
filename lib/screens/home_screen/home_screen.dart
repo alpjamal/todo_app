@@ -13,33 +13,37 @@ class HomeScreen extends StatelessWidget {
         preferredSize: Size.fromHeight(alertTodo == null ? TodoSize.appBarNoAlert : TodoSize.appBarAlert - 25),
         child: UserAppBar(),
       ),
-      body: BlocListener<TodosBloc, TodosState>(
+      body: BlocConsumer<TodosBloc, TodosState>(
         listener: (ctx, state) {
           if (state is TodosLoaded) {
             panel.closePanel();
           }
         },
-        child: SlidingUpPanel(
-          controller: panel.panelController,
-          maxHeight: panel.panelMaxHeight,
-          minHeight: 0,
-          onPanelSlide: (position) => panel.onPanelSlide(position),
-          borderRadius: TodoRadius.elliptical,
-          panelBuilder: (sc) => AddTodoPanel(),
-          body: navBar.isHome
-              ? BlocBuilder<TodosBloc, TodosState>(
-                  builder: (ctx, state) {
-                    if (state is TodosLoading) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (state is TodosLoaded) {
-                      return state.todos.isEmpty ? _noTodos() : _todos(context, state);
-                    } else {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  },
-                )
-              : _categories(),
-        ),
+        builder: (context, state) {
+          return SlidingUpPanel(
+            controller: panel.panelController,
+            maxHeight: panel.panelMaxHeight,
+            minHeight: 0,
+            onPanelSlide: (position) => panel.onPanelSlide(position),
+            borderRadius: TodoRadius.elliptical,
+            panelBuilder: (sc) => AddTodoPanel(),
+            body: state is TodosLoading
+                ? Center(child: CircularProgressIndicator())
+                : navBar.isHome
+                    ? BlocBuilder<TodosBloc, TodosState>(
+                        builder: (ctx, state) {
+                          if (state is TodosLoading) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (state is TodosLoaded) {
+                            return state.todos.isEmpty ? _noTodos() : _todos(context, state);
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      )
+                    : _categories(),
+          );
+        },
       ),
       bottomNavigationBar: Stack(
         clipBehavior: Clip.none,
@@ -100,7 +104,7 @@ class HomeScreen extends StatelessWidget {
           key: ValueKey(todo.id),
           endActionPane: ActionPane(
             motion: ScrollMotion(),
-            extentRatio: Platform.isIOS ?  0.27 : 0.30,
+            extentRatio: Platform.isIOS ? 0.27 : 0.30,
             children: [
               SizedBox(width: 10),
               FloatingActionButton(
