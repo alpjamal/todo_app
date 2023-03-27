@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                           if (state is TodosLoading) {
                             return Center(child: CircularProgressIndicator());
                           } else if (state is TodosLoaded) {
-                            return state.todos.isEmpty ? _noTodos() : _todos(context, state);
+                            return state.todos.isEmpty ? _noTodos() : TodosList(state);
                           } else {
                             return Center(child: CircularProgressIndicator());
                           }
@@ -89,41 +89,6 @@ class HomeScreen extends StatelessWidget {
               return TodoCategoryCard(index, state);
             },
           ),
-        );
-      },
-    );
-  }
-
-  _todos(BuildContext ctx, TodosLoaded state) {
-    return ListView.builder(
-      padding: const EdgeInsets.fromLTRB(18, 8, 18, 0),
-      itemCount: state.todos.length,
-      itemBuilder: (ctx, index) {
-        var todo = state.todos[index];
-        return Slidable(
-          key: ValueKey(todo.id),
-          endActionPane: ActionPane(
-            motion: ScrollMotion(),
-            extentRatio: Platform.isIOS ? 0.27 : 0.30,
-            children: [
-              SizedBox(width: 10),
-              FloatingActionButton(
-                onPressed: () {},
-                backgroundColor: TodoColor.purple.withOpacity(0.4),
-                elevation: 0,
-                mini: true,
-                child: Icon(Icons.edit_outlined, color: TodoColor.purple),
-              ),
-              FloatingActionButton(
-                onPressed: () => ctx.read<TodosBloc>().add(DeleteTodo(todo: todo)),
-                elevation: 0,
-                backgroundColor: TodoColor.meeting.withOpacity(0.4),
-                mini: true,
-                child: Icon(Icons.delete_outline_sharp, color: TodoColor.meeting),
-              ),
-            ],
-          ),
-          child: TodoCard(todo: todo),
         );
       },
     );

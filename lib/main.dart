@@ -23,6 +23,7 @@ part 'screens/home_screen/app_bar.dart';
 part 'screens/home_screen/add_todo_panel.dart';
 part 'screens/onboarding_screen.dart';
 part 'screens/home_screen/home_screen.dart';
+part 'screens/home_screen/todos_list.dart';
 part 'widgets/gradient_btn.dart';
 part 'widgets/floating_btn.dart';
 part 'widgets/todo_card.dart';

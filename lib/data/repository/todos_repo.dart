@@ -21,7 +21,6 @@ class TodosRepo {
   }
 
   Future<void> addTodo(Todo todo) async {
-    // String day = DateFormat('dd MM yyyy').format(todo.dayTime);
     FirebaseFirestore.instance.collection('todos').add(
       {
         'id': todo.id,
