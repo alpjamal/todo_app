@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -10,7 +9,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'utils/constants.dart';
 import 'data/cubits/color_cubit/color_cubit.dart';
-import 'data/blocs/todo_category/category_bloc.dart';
 import 'data/blocs/todos/todos_bloc.dart';
 import 'data/cubits/panel/panel_cubit.dart';
 import 'data/cubits/navbar/navbar_cubit.dart';
@@ -33,7 +31,6 @@ part 'widgets/todo_alert.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Platform.isIOS ? null : await Firebase.initializeApp();
   var prefs = await SharedPreferences.getInstance();
   bool isInitial = prefs.getBool(TodoPrefs.isInitial) ?? true;
   runApp(
@@ -43,7 +40,6 @@ void main() async {
         BlocProvider(create: (_) => NavbarCubit()),
         BlocProvider(create: (_) => TodosBloc()..add(LoadTodos())),
         BlocProvider(create: (_) => TodoPanelCubit()),
-        BlocProvider(create: (ctx) => CategoryBloc(todosBloc: BlocProvider.of<TodosBloc>(ctx))),
         BlocProvider(create: (_) => ColorCubit()),
       ],
       child: MyApp(isInitial),
