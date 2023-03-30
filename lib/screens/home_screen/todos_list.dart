@@ -6,15 +6,14 @@ class TodosList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final todos = state.todos;
-    Map map = _separate(todos);
+    Map days = BlocProvider.of<TodosBloc>(context).separate(state.todos);
 
     return ListView.builder(
       padding: const EdgeInsets.fromLTRB(18, 8, 18, 0),
-      itemCount: map.length,
+      itemCount: days.length,
       itemBuilder: (context, mainIndex) {
-        String title = map.keys.toList()[mainIndex];
-        List<Todo> adf = map[title]!;
+        String title = days.keys.toList()[mainIndex];
+        List<Todo> adf = days[title]!;
         return Column(
           children: [
             SizedBox(width: double.infinity, child: Text(title, style: TodoStyle.btn)),
@@ -34,34 +33,19 @@ class TodosList extends StatelessWidget {
         extentRatio: Platform.isIOS ? 0.27 : 0.30,
         children: [
           SizedBox(width: 10),
-          FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: TodoColor.purple.withOpacity(0.4),
-            elevation: 0,
-            mini: true,
-            child: Icon(Icons.edit_outlined, color: TodoColor.purple),
-          ),
-          FloatingActionButton(
+          Spacer(),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+              backgroundColor: TodoColor.meeting.withOpacity(0.3),
+            ),
             onPressed: () => ctx.read<TodosBloc>().add(DeleteTodo(todo: todo)),
-            elevation: 0,
-            backgroundColor: TodoColor.meeting.withOpacity(0.4),
-            mini: true,
             child: Icon(Icons.delete_outline_sharp, color: TodoColor.meeting),
           ),
+          Spacer(),
         ],
       ),
       child: TodoCard(todo: todo),
     );
-  }
-
-  _separate(todos) {
-    Map<String, List<Todo>> map = {};
-    for (var i = 0; i < todos.length; i++) {
-      String day = DateFormat('dd MM yyy').format(todos[i].dayTime);
-      Todo todo = todos[i];
-      map[day] == null ? map[day] = [] : null;
-      map[day]!.add(todo);
-    }
-    return map;
   }
 }

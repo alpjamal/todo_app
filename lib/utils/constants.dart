@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TodoPrefs {
+  static const String prefs = 'prefs';
+  static const String todos = 'todos';
   static const String isInitial = 'isInitial';
 }
 
@@ -24,7 +26,7 @@ class TodoStyle {
   static const TextStyle entry = TextStyle(fontSize: 22, color: TodoColor.purple, fontWeight: FontWeight.w600);
   static const TextStyle btn = TextStyle(fontSize: 15);
   static const TextStyle label = TextStyle(fontSize: 12);
-  static const TextStyle appBar = TextStyle(fontSize: 18);
+  static const TextStyle appBar = TextStyle(fontSize: 22);
   static const TextStyle taskCard = TextStyle(fontSize: 14, color: TodoColor.purple, fontWeight: FontWeight.bold);
   static const TextStyle cardTime = TextStyle(fontSize: 11, color: Colors.grey);
   static const TextStyle panelTitle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);

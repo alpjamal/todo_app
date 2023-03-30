@@ -16,21 +16,16 @@ class UserAppBar extends StatelessWidget {
       toolbarHeight: alertTodo == null ? TodoSize.appBarNoAlert : TodoSize.appBarAlert,
       leadingWidth: 0,
       title: Padding(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Hello User!\nToday you have ${todos.length} tasks', style: TodoStyle.appBar),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                )
-              ],
-            ),
-            SizedBox(height: 10),
-            if (alertTodo != null) TodoAlert(todo: alertTodo),
+            Text('You have ${todos.length} tasks', style: TodoStyle.appBar),
+            SizedBox(width: double.infinity),
+            if (alertTodo != null) ...[
+              SizedBox(height: 10),
+              TodoAlert(todo: alertTodo),
+            ],
           ],
         ),
       ),

@@ -1,11 +1,25 @@
 import 'package:equatable/equatable.dart';
-import 'package:todo_app/data/models/todo_category.dart';
+import 'package:hive/hive.dart';
+import 'package:todo_app/data/models/todo_category/todo_category.dart';
 
+part 'todo.g.dart';
+
+@HiveType(typeId: 1)
 class Todo extends Equatable {
+
+  @HiveField(0)
   final String? id;
+  
+  @HiveField(1)
   final String title;
+  
+  @HiveField(2)
   final DateTime dayTime;
+  
+  @HiveField(3)
   final TodoCategory category;
+  
+  @HiveField(4)
   final bool isCompleted;
 
   Todo({

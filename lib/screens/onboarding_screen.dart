@@ -30,7 +30,7 @@ class OnboardingScreen extends StatelessWidget {
   }
 
   _start(ctx) {
-    BlocProvider.of<PrefsCubit>(ctx).start();
     Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (_) => HomeScreen()));
+    BlocProvider.of<PrefsCubit>(ctx).start();
   }
 }
