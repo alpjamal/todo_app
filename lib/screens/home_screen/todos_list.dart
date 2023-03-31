@@ -1,12 +1,12 @@
 part of '../../main.dart';
 
 class TodosList extends StatelessWidget {
-  const TodosList(this.state, {super.key});
-  final TodosLoaded state;
+  const TodosList(this.todos, {super.key});
+  final List<Todo> todos;
 
   @override
   Widget build(BuildContext context) {
-    Map days = BlocProvider.of<TodosBloc>(context).separate(state.todos);
+    Map days = BlocProvider.of<TodosBloc>(context).separate(todos);
 
     return ListView.builder(
       padding: const EdgeInsets.fromLTRB(18, 8, 18, 0),

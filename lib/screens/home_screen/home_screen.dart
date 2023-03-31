@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                           if (state is TodosLoading) {
                             return Center(child: CircularProgressIndicator());
                           } else if (state is TodosLoaded) {
-                            return state.todos.isEmpty ? _noTodos() : TodosList(state);
+                            return state.todos.isEmpty ? _noTodos() : TodosList(state.todos);
                           } else {
                             return Center(child: CircularProgressIndicator());
                           }
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
             },
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.window_sharp), label: 'Task'),
+              BottomNavigationBarItem(icon: Icon(Icons.window_sharp), label: 'Tasks'),
             ],
           ),
           Positioned(
@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(TodoImage.empty, cacheHeight: 200),
+        SvgPicture.asset(TodoIcon.empty, height: 200),
         SizedBox(height: 50),
         Text('No tasks', style: TodoStyle.entry),
         SizedBox(height: 200),

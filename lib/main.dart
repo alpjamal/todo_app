@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -33,12 +34,16 @@ late bool _isInitial;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // initialize Hive
   await Hive.initFlutter();
 
   // Hive adapters
   Hive.registerAdapter(TodoAdapter());
   Hive.registerAdapter(TodoCategoryAdapter());
 
+  // Open the box
+  await Hive.openBox<Todo>(TodoPrefs.todos);
   Box prefs = await Hive.openBox<bool>(TodoPrefs.prefs);
   _isInitial = prefs.get(TodoPrefs.isInitial) ?? true;
 

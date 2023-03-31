@@ -16,7 +16,7 @@ class GradientFloatingBtn extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [TodoShadow.floatingBtn],
         ),
-        child: icon ?? Image.asset(TodoIcon.add, cacheHeight: 30),
+        child: icon ?? SvgPicture.asset(TodoIcon.add, height: 30),
       ),
     );
   }

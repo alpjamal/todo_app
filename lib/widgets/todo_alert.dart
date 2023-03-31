@@ -30,16 +30,12 @@ class TodoAlert extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(right: 60),
-                child: Image.asset(TodoImage.bell, cacheHeight: 70),
+                child: SvgPicture.asset(TodoIcon.bell, height: 70),
               ),
             ],
           ),
         ),
-        Positioned(
-          top: 10,
-          right: 10,
-          child: Icon(Icons.close),
-        ),
+        Positioned(top: 10, right: 10, child: Icon(Icons.close)),
       ],
     );
   }

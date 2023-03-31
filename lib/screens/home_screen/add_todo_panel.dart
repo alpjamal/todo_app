@@ -88,6 +88,7 @@ class _AddTodoPanelState extends State<AddTodoPanel> {
                 context.read<ColorCubit>().select(null);
                 _clear();
               }
+              FocusManager.instance.primaryFocus?.unfocus();
             },
           ),
         ],

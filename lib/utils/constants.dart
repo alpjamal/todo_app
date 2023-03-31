@@ -35,14 +35,14 @@ class TodoStyle {
 }
 
 class TodoImage {
-  static const String onboarding = 'assets/images/onboarding.png';
-  static const String empty = 'assets/images/no_tasks.png';
   static const String appBar = 'assets/images/Frame.png';
-  static const String bell = 'assets/icons/bell.png';
 }
 
 class TodoIcon {
-  static const String add = 'assets/icons/add.png';
+  static const String empty = 'assets/images/no_tasks.svg';
+  static const String onboarding = 'assets/images/onboarding.svg';
+  static const String bell = 'assets/icons/bell.svg';
+  static const String add = 'assets/icons/add.svg';
 }
 
 class TodoShadow {

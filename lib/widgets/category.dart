@@ -23,9 +23,9 @@ class TodoCategoryCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset('assets/icons/category$index.png', cacheHeight: 60),
+          SvgPicture.asset('assets/icons/category$index.svg', height: 50),
           Text(categoryName, style: TodoStyle.appBar),
-          Text(len.toString(), style: TodoStyle.label),
+          Text(len.toString(), style: TodoStyle.btn),
         ],
       ),
     );
